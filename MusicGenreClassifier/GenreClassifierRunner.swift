@@ -74,8 +74,9 @@ final class GenreClassifierRunner {
         }
         
         let output: GenreClassifierOutput = try classifier.prediction(input: classifierInput)
-        print(output.genre)
-        print(output.Identity)
+
+        output.Identity.sorted(by: { $0.value > $1.value }).forEach { print($0) }
+
         return output.genre
     }
 }
