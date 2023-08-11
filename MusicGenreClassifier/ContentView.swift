@@ -16,8 +16,8 @@ struct ContentView: View {
         VStack {
             Button("Classify Genre", action: {
                 Task { await buttonHandler() }
-            })
-            Text(classifierData.genre)
+            }).disabled(classifierData.isRunning)
+            classifierData.isRunning ? AnyView(ProgressView()) : AnyView(Text(classifierData.genre))
         }
         .padding()
     }
@@ -25,16 +25,18 @@ struct ContentView: View {
 
 class ClassifierData: ObservableObject {
     @Published var genre: String
+    @Published var isRunning: Bool
 
     init(genre: String) {
         self.genre = genre
+        self.isRunning = false
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(
-            classifierData: ClassifierData(genre: "unknown"),
+            classifierData: ClassifierData(genre: ""),
             buttonHandler: {}
         )
     }

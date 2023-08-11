@@ -10,17 +10,18 @@ import SwiftUI
 @main
 final class MusicGenreClassifierApp: App {
     let classifier = GenreClassifierRunner()
-    var classifierData = ClassifierData(genre: "unknown")
+    var classifierData = ClassifierData(genre: "")
     
     var body: some Scene {
         WindowGroup {
             ContentView(
                 classifierData: classifierData,
                 buttonHandler: {
+                    self.classifierData.genre = ""
+                    self.classifierData.isRunning = true
                     let genre = try! await self.classifier.run()
-                    Task { @MainActor [weak self] in
-                        self?.classifierData.genre = genre
-                    }
+                    self.classifierData.genre = genre
+                    self.classifierData.isRunning = false
                 }
             )
         }
