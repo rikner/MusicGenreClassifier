@@ -1,0 +1,5 @@
+module CKissFFT [system] {
+    header "kiss_fft.h"
+    header "kiss_fftr.h"
+    export *
+}

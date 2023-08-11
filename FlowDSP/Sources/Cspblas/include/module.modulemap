@@ -1,0 +1,4 @@
+module Cspblas [system] {
+    header "blas_sparse.h"
+    export *
+}
